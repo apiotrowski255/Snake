@@ -1,0 +1,5 @@
+open game art:
+https://opengameart.org/content/snake-graphics
+
+Might use new tileset:
+https://analogstudios.itch.io/fantasy?download
