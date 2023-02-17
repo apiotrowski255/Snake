@@ -24,7 +24,6 @@ func self_colliding() -> bool:
 		if snake_body.global_position == snake_head.global_position:
 			pass
 		elif snake_head.global_position.distance_to(snake_body.global_position) < 12 and snake_head.current_state != SnakeBase.state.CRASH:
-			print("Snake is colliding with itself")
 			emit_signal("snake_died")
 			crash()
 			return true
@@ -53,7 +52,6 @@ func grow_snake():
 
 # function is called when the snake crashes with itself
 func crash() -> void:
-	print("start crash")
 	for snake_part in self.get_children():
 		snake_part.current_state = SnakeBase.state.CRASH
 		snake_part.crash()

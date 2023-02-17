@@ -36,6 +36,6 @@ func _process(delta):
 
 func crash() -> void:
 	randomize()
-	current_direction = current_direction.rotated(rand_range(-PI/8, PI/8))
+	current_direction = current_direction.rotated(rand_range(-PI/4, PI/4))
 	tween.interpolate_property(self, "speed", speed, 0, rand_range(1.0, 3.0), 0, 1)
 	tween.start()
