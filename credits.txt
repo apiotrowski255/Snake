@@ -3,3 +3,6 @@ https://opengameart.org/content/snake-graphics
 
 Might use new tileset:
 https://analogstudios.itch.io/fantasy?download
+
+Used this apple sprite:
+https://elenetari.itch.io/apple-sprites
