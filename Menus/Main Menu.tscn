@@ -43,6 +43,8 @@ margin_top = 176.0
 margin_right = 752.0
 margin_bottom = 240.0
 theme = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 margin_left = 80.0
@@ -83,10 +85,14 @@ theme = ExtResource( 3 )
 text = "Credits"
 
 [connection signal="focus_entered" from="MarginContainer/VBoxContainer/play button" to="." method="_on_play_button_focus_entered"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/play button" to="." method="_on_play_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/play button" to="." method="_on_play_button_pressed"]
 [connection signal="focus_entered" from="MarginContainer/VBoxContainer/two player button" to="." method="_on_two_player_button_focus_entered"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/two player button" to="." method="_on_two_player_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/two player button" to="." method="_on_two_player_button_pressed"]
 [connection signal="focus_entered" from="MarginContainer/VBoxContainer/options button" to="." method="_on_options_button_focus_entered"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/options button" to="." method="_on_options_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/options button" to="." method="_on_options_button_pressed"]
 [connection signal="focus_entered" from="MarginContainer/VBoxContainer/credits button" to="." method="_on_credits_button_focus_entered"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/credits button" to="." method="_on_credits_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/credits button" to="." method="_on_credits_button_pressed"]

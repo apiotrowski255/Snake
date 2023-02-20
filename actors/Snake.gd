@@ -17,7 +17,6 @@ func _ready():
 	snake_tail_3.object_to_follow = snake_tail_2
 	tail = snake_tail_3
 	length = 4
-	pass # Replace with function body.
 
 func self_colliding() -> bool:
 	for snake_body in self.get_children():
@@ -55,3 +54,10 @@ func crash() -> void:
 		snake_part.current_state = SnakeBase.state.CRASH
 		snake_part.crash()
 	emit_signal("snake_died")
+
+func set_speed(speed: int) -> void:
+	for child in self.get_children():
+		child.speed = speed
+
+func get_speed() -> int:
+	return snake_head.speed

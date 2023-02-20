@@ -40,10 +40,6 @@ func _process(delta):
 		global_position.x = int(global_position.x)
 		global_position.y = int(global_position.y)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
-
 
 func crash() -> void:
 	randomize()

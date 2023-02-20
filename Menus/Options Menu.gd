@@ -18,11 +18,7 @@ func _on_Button_pressed():
 
 
 func _on_music_volume_value_changed(value):
-	if value == -20.0:
-		AudioMaster.audio_stream_player.playing = false
-	else:
-		AudioMaster.audio_stream_player.playing = true
-		AudioMaster.set_volume(value)
+	AudioMaster.set_volume(value)
 
 
 func _on_sfx_volume_value_changed(value):

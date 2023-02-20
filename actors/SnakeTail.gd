@@ -1,6 +1,7 @@
 extends SnakeBase
 var object_to_follow
 
+
 func _process(delta):
 	# For some reason putting this code after the if statements will cause it to break
 	move_and_collide(speed * current_direction)

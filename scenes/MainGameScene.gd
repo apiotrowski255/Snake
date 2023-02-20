@@ -2,22 +2,22 @@ extends Node2D
 
 onready var snake = $Snake
 onready var explosion_holder = $explosion_holder
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 onready var timer = $Timer
 onready var canvas_modulate = $CanvasModulate
 onready var tween = $Tween
 onready var canvas_layer = $CanvasLayer
 onready var label = $CanvasLayer/Control/CenterContainer/VBoxContainer/Label
 
-
-
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	canvas_modulate.hide()
+	canvas_modulate.show()
+	canvas_modulate.color = Color(.4, .4, .4)
 	canvas_layer.hide()
+	
+	snake.set_speed(0)
+	timer.start(3.0)
+	yield(timer, "timeout")
+	canvas_modulate.hide()
+	snake.set_speed(4)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,7 +30,7 @@ func _process(delta):
 # The thing is, there should always be an apple in the scene
 func get_apple_or_null() -> Area2D:
 	for child in self.get_children():
-		if child is Apple and child.name != "Surrounding walls":
+		if child is Apple:
 			return child
 	return null
 
@@ -67,13 +67,15 @@ func spawn_new_apple() -> void:
 	apple.connect("body_entered", self, "_on_Apple_body_entered")
 	apple.global_position = position
 	self.add_child(apple, true)
+
+func spawn_block() -> void:
 	var collisionshape = CollisionShape2D.new()
 	var shape = RectangleShape2D.new()
 	shape.extents = Vector2(10, 10)
 	collisionshape.set_shape(shape)
 	collisionshape.global_position = random_free_spot()
 	self.get_node("Surrounding walls").add_child(collisionshape)
-	
+
 func random_free_spot() -> Vector2:
 	randomize()
 	var x = (randi() % 30) + 1
@@ -93,8 +95,8 @@ func _on_Surrounding_walls_body_entered(body):
 func _on_Snake_snake_died():
 	timer.start(1.0)
 	yield(timer, "timeout")
-	canvas_modulate.show()
 	tween.interpolate_property(canvas_modulate, "color", Color(1, 1, 1, 1), Color(.4, .4, .4, 1), 2.0)
+	canvas_modulate.show()
 	tween.start()
 	yield(tween, "tween_all_completed")
 	label.set_text("Game Over! \nYour final Length is: " + str(snake.length))
