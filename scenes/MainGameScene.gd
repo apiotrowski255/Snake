@@ -5,20 +5,44 @@ onready var explosion_holder = $explosion_holder
 onready var timer = $Timer
 onready var canvas_modulate = $CanvasModulate
 onready var tween = $Tween
-onready var canvas_layer = $CanvasLayer
 onready var label = $CanvasLayer/Control/CenterContainer/VBoxContainer/Label
+onready var countdown = $CanvasLayer/Control/CenterContainer/countdown
+onready var v_box_container = $CanvasLayer/Control/CenterContainer/VBoxContainer
+
+
 
 func _ready():
 	canvas_modulate.show()
 	canvas_modulate.color = Color(.4, .4, .4)
-	canvas_layer.hide()
+	v_box_container.hide()
 	
 	snake.set_speed(0)
-	timer.start(3.0)
+	snake.global_position.y = random_y_value()
+	get_apple_or_null().global_position = random_free_spot()
+	
+	countdown.show()
+	countdown.text = "3"
+	timer.start(1.0)
 	yield(timer, "timeout")
+	
+	countdown.text = "2"
+	timer.start(1.0)
+	yield(timer, "timeout")
+	
+	countdown.text = "1"
+	timer.start(1.0)
+	yield(timer, "timeout")
+	
+	countdown.hide()
 	canvas_modulate.hide()
 	snake.set_speed(4)
+	
 
+func random_y_value() -> int:
+	randomize()
+	var i = randi() % 17 + 1
+	var y = 16 + 32 * i
+	return y
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -36,7 +60,8 @@ func get_apple_or_null() -> Area2D:
 
 func spawn_explosion() -> void:
 	var explosion = load("res://actors/eating_apple_explosion.tscn").instance()
-	explosion.emitting = true
+	
+	explosion_holder.add_child(explosion)
 	explosion.global_position = snake.snake_head.global_position
 	if snake.snake_head.current_direction == Vector2.RIGHT:
 		explosion.global_position.x += 16
@@ -46,7 +71,7 @@ func spawn_explosion() -> void:
 		explosion.global_position.x -= 16
 	elif snake.snake_head.current_direction == Vector2.DOWN:
 		explosion.global_position.y += 16
-	explosion_holder.add_child(explosion)
+	explosion.emitting = true
 
 func _on_Apple_body_entered(body):
 	get_apple_or_null().queue_free()
@@ -95,15 +120,21 @@ func _on_Surrounding_walls_body_entered(body):
 func _on_Snake_snake_died():
 	timer.start(1.0)
 	yield(timer, "timeout")
+	canvas_modulate.color = Color(1,1,1,1)
 	tween.interpolate_property(canvas_modulate, "color", Color(1, 1, 1, 1), Color(.4, .4, .4, 1), 2.0)
 	canvas_modulate.show()
 	tween.start()
 	yield(tween, "tween_all_completed")
 	label.set_text("Game Over! \nYour final Length is: " + str(snake.length))
-	canvas_layer.show()
+	v_box_container.show()
+	$CanvasLayer/Control/CenterContainer/VBoxContainer/Button2.grab_focus()
+	AudioMaster.set_volume(-20)
+
 
 func _on_Button_pressed():
+	AudioMaster.set_volume(0)
 	get_tree().change_scene("res://Menus/Main Menu.tscn")
 
 func _on_Button2_pressed():
+	AudioMaster.set_volume(0)
 	get_tree().change_scene("res://scenes/SinglePlayerGame.tscn")
