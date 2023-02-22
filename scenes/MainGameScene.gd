@@ -18,7 +18,13 @@ func _ready():
 	
 	snake.set_speed(0)
 	snake.global_position.y = random_y_value()
-	get_apple_or_null().global_position = random_free_spot()
+	$Apple_holder/Apple.global_position = random_free_spot()
+	$Apple_holder/Apple2.global_position = random_free_spot()
+	$Apple_holder/Apple3.global_position = random_free_spot()
+	
+	$Apple_holder/Apple.connect("body_entered", self, "_on_Apple_body_entered", [$Apple_holder/Apple])
+	$Apple_holder/Apple2.connect("body_entered", self, "_on_Apple_body_entered", [$Apple_holder/Apple2])
+	$Apple_holder/Apple3.connect("body_entered", self, "_on_Apple_body_entered", [$Apple_holder/Apple3])
 	
 	countdown.show()
 	countdown.text = "3"
@@ -51,12 +57,14 @@ func _process(delta):
 		if child.emitting == false:
 			child.queue_free()
 
-# The thing is, there should always be an apple in the scene
-func get_apple_or_null() -> Area2D:
-	for child in self.get_children():
-		if child is Apple:
-			return child
-	return null
+func get_closest_apple(position: Vector2):
+	var distance = 10000
+	var closest_apple = null
+	for apple in $Apple_holder.get_children():
+		if apple.global_position.distance_to(position) < distance:
+			distance = apple.global_position.distance_to(position)
+			closest_apple = apple
+	return closest_apple
 
 func spawn_explosion() -> void:
 	var explosion = load("res://actors/eating_apple_explosion.tscn").instance()
@@ -73,11 +81,12 @@ func spawn_explosion() -> void:
 		explosion.global_position.y += 16
 	explosion.emitting = true
 
-func _on_Apple_body_entered(body):
-	get_apple_or_null().queue_free()
+func _on_Apple_body_entered(body, apple):
+	apple.queue_free()
 	spawn_explosion()
 	snake.grow_snake()
 	spawn_new_apple()
+	AudioMaster.play_sfx("res://audio/atari_boom.wav")
 
 func is_position2D_overlap_snake(position : Vector2) -> bool:
 	for snake in $Snake.get_children():
@@ -89,9 +98,9 @@ func spawn_new_apple() -> void:
 	var position = random_free_spot()
 	var apple = load("res://actors/Apple.tscn").instance()
 	apple.name = "Apple"
-	apple.connect("body_entered", self, "_on_Apple_body_entered")
 	apple.global_position = position
-	self.add_child(apple, true)
+	apple.connect("body_entered", self, "_on_Apple_body_entered", [apple])
+	$Apple_holder.add_child(apple, true)
 
 func spawn_block() -> void:
 	var collisionshape = CollisionShape2D.new()
@@ -106,18 +115,24 @@ func random_free_spot() -> Vector2:
 	var x = (randi() % 30) + 1
 	var y = (randi() % 17) + 1
 	var position = Vector2(x * 32 + 16, y * 32 + 16)
-	while is_position2D_overlap_snake(position) == true:
+	while is_position2D_overlap_snake(position) or is_position2D_overlap_apple(position):
 		x = (randi() % 30) + 1
 		y = (randi() % 17) + 1
 		position = Vector2(x * 32 + 16, y * 32 + 16)
 	return position
 
+func is_position2D_overlap_apple(position) -> bool:
+	for apple in $Apple_holder.get_children():
+		if position == apple.global_position:
+			return true
+	return false
 
 func _on_Surrounding_walls_body_entered(body):
 	snake.crash()
 
 
 func _on_Snake_snake_died():
+	AudioMaster.slowly_change_volume(AudioMaster.get_volume() - 15, 2)
 	timer.start(1.0)
 	yield(timer, "timeout")
 	canvas_modulate.color = Color(1,1,1,1)
@@ -128,13 +143,15 @@ func _on_Snake_snake_died():
 	label.set_text("Game Over! \nYour final Length is: " + str(snake.length))
 	v_box_container.show()
 	$CanvasLayer/Control/CenterContainer/VBoxContainer/Button2.grab_focus()
-	AudioMaster.set_volume(-20)
+	
 
 
 func _on_Button_pressed():
-	AudioMaster.set_volume(0)
+	AudioMaster.slowly_change_volume(AudioMaster.get_volume() + 15, 1)
 	get_tree().change_scene("res://Menus/Main Menu.tscn")
+	AudioMaster.play_sfx("res://audio/vgmenuselect.wav")
 
 func _on_Button2_pressed():
-	AudioMaster.set_volume(0)
+	AudioMaster.slowly_change_volume(AudioMaster.get_volume() + 15, 1)
 	get_tree().change_scene("res://scenes/SinglePlayerGame.tscn")
+	AudioMaster.play_sfx("res://audio/vgmenuselect.wav")

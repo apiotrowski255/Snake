@@ -8,6 +8,8 @@ onready var snake_tail_2 = $SnakeTail2
 onready var snake_tail_3 = $SnakeTail3
 var tail
 
+export var starting_direction: = Vector2.RIGHT
+
 signal snake_died
 
 # Called when the node enters the scene tree for the first time.
@@ -17,6 +19,11 @@ func _ready():
 	snake_tail_3.object_to_follow = snake_tail_2
 	tail = snake_tail_3
 	length = 4
+	set_direction(starting_direction)
+
+func set_direction(direction: Vector2) -> void:
+	for snake_part in self.get_children():
+		snake_part.current_direction = direction
 
 func self_colliding() -> bool:
 	for snake_body in self.get_children():
