@@ -13,6 +13,7 @@ onready var sfx_volume = $"VBoxContainer/sfx volume"
 func _ready():
 	music_volume.value = AudioMaster.get_volume()
 	sfx_volume.value = AudioMaster.get_sfx_volume()
+	button.grab_focus()
 
 func _on_Button_pressed():
 	get_tree().change_scene("res://Menus/Main Menu.tscn")

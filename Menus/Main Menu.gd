@@ -1,7 +1,7 @@
 extends Control
 
 onready var play_button = $"MarginContainer/VBoxContainer/play button"
-onready var two_player_button = $"MarginContainer/VBoxContainer/two player button"
+onready var hard_button = $"MarginContainer/VBoxContainer/play button2"
 onready var options_button = $"MarginContainer/VBoxContainer/options button"
 onready var credits_button = $"MarginContainer/VBoxContainer/credits button"
 var focused_button
@@ -12,9 +12,6 @@ func _on_play_button_pressed():
 	get_tree().change_scene("res://scenes/SinglePlayerGame.tscn")
 	AudioMaster.play_sfx("res://audio/vgmenuselect.wav")
 
-
-func _on_two_player_button_pressed():
-	AudioMaster.play_sfx("res://audio/vgmenuselect.wav")
 
 
 
@@ -40,11 +37,6 @@ func _on_play_button_focus_entered():
 	AudioMaster.play_sfx("res://audio/MENU_Pick.wav")
 
 
-func _on_two_player_button_focus_entered():
-	label.set_text("play two player mode!\nplayer one use WASD\nplayer two use Arrow keys")
-	focused_button = two_player_button
-	AudioMaster.play_sfx("res://audio/MENU_Pick.wav")
-
 
 func _on_options_button_focus_entered():
 	label.set_text("Go to options menu where you can control the volume")
@@ -59,17 +51,11 @@ func _on_credits_button_focus_entered():
 
 
 func _on_play_button_mouse_entered():
-	label.set_text("single player button")
+	label.set_text("play single player mode!\nuse WASD or arrow keys to control the snake")
 	play_button.grab_focus()
 	focused_button = play_button
 	AudioMaster.play_sfx("res://audio/MENU_Pick.wav")
 
-
-func _on_two_player_button_mouse_entered():
-	label.set_text("two player button")
-	two_player_button.grab_focus()
-	focused_button = two_player_button
-	AudioMaster.play_sfx("res://audio/MENU_Pick.wav")
 
 
 func _on_options_button_mouse_entered():
@@ -85,3 +71,20 @@ func _on_credits_button_mouse_entered():
 	focused_button = credits_button
 	AudioMaster.play_sfx("res://audio/MENU_Pick.wav")
 	
+
+
+func _on_play_button2_pressed():
+	get_tree().change_scene("res://scenes/TwoPlayerGame.tscn")
+	AudioMaster.play_sfx("res://audio/vgmenuselect.wav")
+
+
+func _on_play_button2_focus_entered():
+	label.set_text("This mode might be a bit unfair...")
+	focused_button = play_button
+	AudioMaster.play_sfx("res://audio/MENU_Pick.wav")
+
+
+func _on_play_button2_mouse_entered():
+	label.set_text("This mode might be a bit unfair...")
+	focused_button = play_button
+	AudioMaster.play_sfx("res://audio/MENU_Pick.wav")

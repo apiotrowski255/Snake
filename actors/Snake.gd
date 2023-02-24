@@ -9,7 +9,8 @@ onready var snake_tail_3 = $SnakeTail3
 var tail
 
 export var starting_direction: = Vector2.RIGHT
-
+export var head_texture: Texture = load("res://sprites/purple_square.png")
+export var body_texture: Texture = load("res://sprites/green_square.png")
 signal snake_died
 
 # Called when the node enters the scene tree for the first time.
@@ -20,6 +21,17 @@ func _ready():
 	tail = snake_tail_3
 	length = 4
 	set_direction(starting_direction)
+	
+	load_snake_body_texture(body_texture)
+	load_snake_head_texture(head_texture)
+
+func load_snake_head_texture(texture: Texture) -> void:
+	snake_head.load_texture(texture)
+	
+func load_snake_body_texture(texture: Texture) -> void:
+	snake_tail.load_texture(texture)
+	snake_tail_2.load_texture(texture)
+	snake_tail_3.load_texture(texture)
 
 func set_direction(direction: Vector2) -> void:
 	for snake_part in self.get_children():
@@ -40,6 +52,7 @@ func get_tail() -> SnakeBase:
 # Duplicates the tail of the snake and then when there is space, tail starts to follow the snake
 func grow_snake():
 	var new_snake_tail = load("res://actors/SnakeTail.tscn").instance()
+	new_snake_tail.load_texture(body_texture)
 	self.add_child(new_snake_tail)
 	new_snake_tail.object_to_follow = tail
 	new_snake_tail.global_position = tail.global_position

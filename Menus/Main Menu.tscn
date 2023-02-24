@@ -63,12 +63,12 @@ margin_bottom = 42.251
 theme = ExtResource( 3 )
 text = "Single Player mode"
 
-[node name="two player button" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="play button2" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_top = 47.0
 margin_right = 448.0
 margin_bottom = 89.251
 theme = ExtResource( 3 )
-text = "Two Player mode"
+text = "Hard mode"
 
 [node name="options button" type="Button" parent="MarginContainer/VBoxContainer"]
 margin_top = 94.0
@@ -87,9 +87,9 @@ text = "Credits"
 [connection signal="focus_entered" from="MarginContainer/VBoxContainer/play button" to="." method="_on_play_button_focus_entered"]
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/play button" to="." method="_on_play_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/play button" to="." method="_on_play_button_pressed"]
-[connection signal="focus_entered" from="MarginContainer/VBoxContainer/two player button" to="." method="_on_two_player_button_focus_entered"]
-[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/two player button" to="." method="_on_two_player_button_mouse_entered"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/two player button" to="." method="_on_two_player_button_pressed"]
+[connection signal="focus_entered" from="MarginContainer/VBoxContainer/play button2" to="." method="_on_play_button2_focus_entered"]
+[connection signal="mouse_entered" from="MarginContainer/VBoxContainer/play button2" to="." method="_on_play_button2_mouse_entered"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/play button2" to="." method="_on_play_button2_pressed"]
 [connection signal="focus_entered" from="MarginContainer/VBoxContainer/options button" to="." method="_on_options_button_focus_entered"]
 [connection signal="mouse_entered" from="MarginContainer/VBoxContainer/options button" to="." method="_on_options_button_mouse_entered"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/options button" to="." method="_on_options_button_pressed"]

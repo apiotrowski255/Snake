@@ -63,7 +63,7 @@
 extents = Vector2( 496, 10 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 10, 304 )
+extents = Vector2( 5, 304 )
 
 [node name="SinglePlayerGame" type="Node2D"]
 script = ExtResource( 1 )
@@ -96,6 +96,9 @@ position = Vector2( -160, 64 )
 position = Vector2( 48, 48 )
 
 [node name="Surrounding walls" type="Area2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Surrounding walls"]
 position = Vector2( 512, 16 )
@@ -106,7 +109,7 @@ position = Vector2( 512, 624 )
 shape = SubResource( 2 )
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Surrounding walls"]
-position = Vector2( 16, 320 )
+position = Vector2( 11, 320 )
 shape = SubResource( 3 )
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Surrounding walls"]
@@ -177,5 +180,9 @@ text = "123"
 
 [connection signal="snake_died" from="Snake" to="." method="_on_Snake_snake_died"]
 [connection signal="body_entered" from="Surrounding walls" to="." method="_on_Surrounding_walls_body_entered"]
+[connection signal="focus_entered" from="CanvasLayer/Control/CenterContainer/VBoxContainer/Button2" to="." method="_on_Button2_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/CenterContainer/VBoxContainer/Button2" to="." method="_on_Button2_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Control/CenterContainer/VBoxContainer/Button2" to="." method="_on_Button2_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/Control/CenterContainer/VBoxContainer/Button" to="." method="_on_Button_focus_entered"]
+[connection signal="mouse_entered" from="CanvasLayer/Control/CenterContainer/VBoxContainer/Button" to="." method="_on_Button_mouse_entered"]
 [connection signal="pressed" from="CanvasLayer/Control/CenterContainer/VBoxContainer/Button" to="." method="_on_Button_pressed"]

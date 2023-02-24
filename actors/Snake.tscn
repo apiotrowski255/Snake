@@ -1,12 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://actors/SnakeHead.tscn" type="PackedScene" id=1]
 [ext_resource path="res://actors/SnakeTail.tscn" type="PackedScene" id=2]
 [ext_resource path="res://actors/Snake.gd" type="Script" id=3]
+[ext_resource path="res://sprites/purple_square.png" type="Texture" id=4]
+[ext_resource path="res://sprites/green_square.png" type="Texture" id=5]
 
 [node name="Snake" type="Node2D"]
 physics_interpolation_mode = 2
 script = ExtResource( 3 )
+head_texture = ExtResource( 4 )
+body_texture = ExtResource( 5 )
 
 [node name="SnakeHead" parent="." instance=ExtResource( 1 )]
 

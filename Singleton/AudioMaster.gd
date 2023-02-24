@@ -8,7 +8,7 @@ onready var tween = $Tween
 func _ready():
 	audio_stream_player.playing = true
 	sfx.volume_db = -20.0
-	audio_stream_player.volume_db = -20.0
+	audio_stream_player.volume_db = -4.0
 
 func set_volume(new_volume: float) -> void:
 	audio_stream_player.volume_db = new_volume

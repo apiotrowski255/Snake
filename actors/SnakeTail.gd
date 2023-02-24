@@ -1,6 +1,8 @@
 extends SnakeBase
 var object_to_follow
 
+func load_texture(texture: Texture) -> void:
+	$GreenSquare.texture = texture
 
 func _process(delta):
 	# For some reason putting this code after the if statements will cause it to break
