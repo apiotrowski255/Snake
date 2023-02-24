@@ -32,25 +32,25 @@ size_flags_vertical = 3
 
 [node name="ColorRect" type="ColorRect" parent="CenterContainer"]
 margin_left = 162.0
-margin_top = 120.0
+margin_top = 82.0
 margin_right = 862.0
-margin_bottom = 520.0
-rect_min_size = Vector2( 700, 400 )
+margin_bottom = 557.0
+rect_min_size = Vector2( 700, 475 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
 color = Color( 0.184314, 0.184314, 0.184314, 0.439216 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 268.0
-margin_top = 169.0
-margin_right = 756.0
-margin_bottom = 470.0
+margin_left = 189.0
+margin_top = 96.0
+margin_right = 834.0
+margin_bottom = 544.0
 custom_constants/separation = 10
 alignment = 1
 
 [node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
-margin_right = 488.0
-margin_bottom = 249.0
+margin_right = 645.0
+margin_bottom = 396.0
 theme = ExtResource( 3 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
@@ -59,25 +59,32 @@ custom_constants/shadow_offset_y = 1
 custom_constants/shadow_as_outline = 1
 text = "Created by Alex Piotrowski in Godot
 
-All the programming which you can see here: 
-
+All the programming which you can see here:
+ https://github.com/apiotrowski255/Snake
 
 Music:
-
+https://www.youtube.com/watch?v=Oh37IHj51eE
 
 Sprites:
+Apple: https://elenetari.itch.io/apple-sprites
+bg: https://analogstudios.itch.io/fantasy?download
+snake:https://opengameart.org/content/snake-graphics
 
+sfx:
+https://opengameart.org/content/ui-sound-effects-pack
+
+I've probably missed something but i do my best. 
 
 Thanks for playing!"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/VBoxContainer"]
-margin_top = 259.0
-margin_right = 488.0
-margin_bottom = 301.0
+margin_top = 406.0
+margin_right = 645.0
+margin_bottom = 448.0
 
 [node name="Button" type="Button" parent="CenterContainer/VBoxContainer/HBoxContainer"]
-margin_left = 119.0
-margin_right = 368.324
+margin_left = 197.0
+margin_right = 446.324
 margin_bottom = 42.251
 size_flags_horizontal = 6
 theme = ExtResource( 3 )
